@@ -4,10 +4,16 @@ import axios from "axios";
 const EMPLOYEE_API_BASE_URL = "http://localhost:8080/api/v1/employees";
 
 // Get all employees
-export const listEmployees = () => axios.get(`${EMPLOYEE_API_BASE_URL}/employees`);
+export const listEmployees = () =>
+  axios.get(`${EMPLOYEE_API_BASE_URL}/employees`);
+
+// Search employees
+export const searchEmployees = (keyword) =>
+  axios.get(`${EMPLOYEE_API_BASE_URL}/search?keyword=${keyword}`);
 
 // Add a new employee
-export const createEmployee = (employee) => axios.post(`${EMPLOYEE_API_BASE_URL}/add`, employee);
+export const createEmployee = (employee) =>
+  axios.post(`${EMPLOYEE_API_BASE_URL}/add`, employee);
 
 // Get employee by ID
 export const getEmployeeById = (id) =>

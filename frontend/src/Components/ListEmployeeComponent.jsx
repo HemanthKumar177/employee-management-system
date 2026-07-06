@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { listEmployees } from '../Services/EmployeeService'; // adjust if you use default export
+import {
+    listEmployees,
+    searchEmployees,
+    deleteEmployee
+} from '../Services/EmployeeService'; // adjust if you use default export
 import { useNavigate } from 'react-router-dom';
-import { deleteEmployee } from '../Services/EmployeeService';
 // Simple inline SVG logo component — replace if you have an actual logo
 const EmpTrackLogo = ({ size = 56 }) => (
   <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
@@ -22,6 +25,7 @@ export default function FullPageEmployeeList() {
   const [employees, setEmployees] = useState([]);
   const [normalized, setNormalized] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [keyword, setKeyword] = useState("");
 
   //for Add / Update / Delete actions
   const navigate = useNavigate();
@@ -124,6 +128,33 @@ export default function FullPageEmployeeList() {
       .catch((err) => console.error("Delete error:", err));
 }
 
+function handleSearch() {
+
+    console.log("Search button clicked");
+    console.log("Keyword:", keyword);
+
+    if (keyword.trim() === "") {
+
+        listEmployees()
+            .then((response) => {
+                console.log("All Employees:", response.data);
+                setEmployees(response.data);
+                setNormalized(response.data.map(normalizeEmployee));
+            });
+
+        return;
+    }
+
+    
+    searchEmployees(keyword)
+        .then((response) => {
+            setEmployees(response.data);
+            setNormalized(response.data.map(normalizeEmployee));
+        })
+        .catch((error) => {
+            console.error("Search Error:", error);
+        });
+}
 
   return (
     <>
@@ -285,6 +316,25 @@ export default function FullPageEmployeeList() {
             </div>
 
             <div className="header-actions">
+              <input
+    type="text"
+    placeholder="Search employee..."
+    value={keyword}
+    onChange={(e) => setKeyword(e.target.value)}
+    style={{
+        padding: "10px",
+        borderRadius: "8px",
+        border: "1px solid #ccc",
+        marginRight: "10px"
+    }}
+/>
+
+<button
+    className="btn-emp btn-update"
+    onClick={handleSearch}
+>
+    Search
+</button>
               <button className="btn-emp btn-add" onClick={AddNewEmployee} aria-label="Add employee">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
                   <path d="M12 5v14M5 12h14" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
