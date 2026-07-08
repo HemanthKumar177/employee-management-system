@@ -35,6 +35,14 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeDto);
     }
 
+//additional endpoint for validator /root
+@GetMapping
+public ResponseEntity<List<EmployeeDto>> getAllEmployeesRoot() {
+    List<EmployeeDto> employees = employeeService.getAllEmployees();
+    return ResponseEntity.ok(employees);
+}
+
+
     // Build Get All Employee REST API
     @GetMapping("/employees")
     public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
