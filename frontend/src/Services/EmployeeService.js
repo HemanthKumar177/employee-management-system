@@ -1,6 +1,7 @@
 import axios from "axios";
 
 // Base URL for all employee APIs
+<<<<<<< HEAD
 const EMPLOYEE_API_BASE_URL = "http://hemanth.training.azuga.com/api/v1/employees";
 
 // Get all employees
