@@ -1,123 +1,232 @@
-# Employee Management System
+# 🚀 Employee Management System
 
-A full-stack Employee Management System built with React.js (frontend) and Spring Boot (backend), using MySQL as the database. This project allows managing employees with full CRUD operations and demonstrates integration between a modern frontend and a robust backend.
+A production-ready **Employee Management System** built using **React.js**, **Spring Boot**, and **MySQL**, containerized with **Docker** and deployed on **AWS EC2** using an automated **Jenkins CI/CD Pipeline**.
 
-## Features
+---
 
-- **Backend (Spring Boot)**
-  - RESTful API for employees
-  - CRUD operations: Create, Read, Update, Delete
-  - MySQL database integration
-  - JPA/Hibernate for ORM
+## ✨ Features
 
-- **Frontend (React.js)**
-  - Employee List page displaying all employees
-  - Add Employee form with validation
-  - Update Employee functionality with validation
-  - Delete Employee with confirmation
-  - Connected to backend API using Axios
+### 🎨 Frontend
+- 📋 Employee Dashboard
+- ➕ Add New Employee
+- ✏️ Update Employee Details
+- ❌ Delete Employee
+- 🔍 View Employee Information
+- 📱 Responsive User Interface
+- 🔗 Axios Integration with Backend APIs
 
-## Project Structure
+### ⚙️ Backend
+- 🌐 RESTful Spring Boot APIs
+- 📝 Complete CRUD Operations
+- 🗄️ MySQL Database Integration
+- 🔄 Spring Data JPA & Hibernate
+- ⚡ Layered Architecture (Controller → Service → Repository)
+
+### ☁️ DevOps
+- 🐳 Docker Containerization
+- 🏗️ Multi-stage Docker Builds
+- 🌐 Custom Docker Network
+- 🤖 Jenkins CI/CD Pipeline
+- 🔀 Nginx Reverse Proxy
+- ☁️ AWS EC2 Deployment
+- ⚖️ AWS Application Load Balancer (ALB)
+- 🌍 Amazon Route 53 Integration
+
+---
+
+# 🛠️ Tech Stack
+
+| Category | Technologies |
+|-----------|--------------|
+| 🎨 Frontend | React.js, Vite, Axios |
+| ⚙️ Backend | Spring Boot, Java 21 |
+| 🗄️ Database | MySQL 8 |
+| 🌐 Web Server | Nginx |
+| 🐳 Containerization | Docker |
+| 🤖 CI/CD | Jenkins |
+| ☁️ Cloud | AWS EC2 |
+| ⚖️ Load Balancer | AWS ALB |
+| 🌍 DNS | Amazon Route 53 |
+| 📦 Build Tool | Maven |
+| 🔧 Version Control | Git & GitHub |
+
+---
+
+# 📡 REST API Endpoints
+
+| Endpoint |                | Method    | Description |
+|:---------|:------:|:------------|
+| `/api/v1/employees`      | **GET**    | Retrieve all employees      |
+| `/api/v1/employees/{id}` | **GET**    | Retrieve employee by ID     |
+| `/api/v1/employees/add`  | **POST**   | Create a new employee       |
+| `/api/v1/employees/{id}` | **PUT**    | Update an existing employee |
+| `/api/v1/employees/{id}` | **DELETE** | Delete an employee          |
+
+---
+
+# 🏗️ Project Architecture
+
+> *(Add your architecture diagram here)*
+
+---
+
+# 📂 Project Structure
+
+```text
 employee-management-system/
+│
+├── backend/
+│   ├── src/
+│   ├── Dockerfile
+│   ├── pom.xml
+│   └── application.properties
+│
+├── frontend/
+│   ├── src/
+│   ├── nginx/
+│   │   └── default.conf
+│   ├── Dockerfile
+│   └── package.json
+│
+├── README.md
+└── LICENSE
 ```
-  ├── backend/
-  │ ├── src/
-  │ ├── pom.xml
-  │ └── application.properties
-  ├── frontend/
-  │ ├── src/
-  │ ├── package.json
-  │ └── public/
-  ├── README.md
-  └── LICENSE
+
+---
+
+# 🚀 Getting Started
+
+## 📥 Clone Repository
+
+```bash
+git clone https://github.com/HemanthKumar177/employee-management-system.git
+cd employee-management-system
 ```
-  ## Getting Started
 
-### Prerequisites
+---
 
-- Java 17+
-- Maven or Gradle
-- Node.js 18+ and npm/yarn
-- MySQL 5.7+ or 8+
+## ⚙️ Backend Setup
 
-### Backend Setup
-
-1. Navigate to the backend folder:
 ```bash
 cd backend
+./mvnw clean package
 ```
 
-2. Configure your MySQL database in application.properties:
-```
-  spring.datasource.url=jdbc:mysql://localhost:3306/employee_db
-  spring.datasource.username=root
-  spring.datasource.password=yourpassword
-  spring.jpa.hibernate.ddl-auto=update
-```
-3. Run the Spring Boot application:
-```
-mvn spring-boot:run
-# or
-./gradlew bootRun
-```
-Backend will run on `http://localhost:8080`.
+Run the application:
 
-  ## Frontend Setup
-
-1. Navigate to the frontend folder:
-
+```bash
+java -jar target/*.jar
 ```
+
+---
+
+## 🎨 Frontend Setup
+
+```bash
 cd frontend
-```
-
-2. Install dependencies:
-```
 npm install
-# or
-yarn
+npm run build
 ```
 
-3. Run the React app:
+---
+
+# 🐳 Docker Deployment
+
+### Build Backend Image
+
+```bash
+cd backend
+docker build -t emp-backend .
 ```
-npm start
-# or
-yarn start
+
+### Build Frontend Image
+
+```bash
+cd ../frontend
+docker build -t emp-frontend .
 ```
 
-Frontend will run on `http://localhost:3000`.
+### Create Docker Network
 
-## Usage
+```bash
+docker network create emp-network
+```
 
-- Visit `http://localhost:3000` in your browser.  
-- View the list of employees.  
-- Use the **Add**, **Update**, and **Delete** buttons to manage employees.  
-- All changes are synced with the backend API.  
+### Run MySQL Container
 
-## Future Improvements
+```bash
+docker run -d \
+--name mysql \
+--network emp-network \
+-e MYSQL_ROOT_PASSWORD=root \
+-e MYSQL_DATABASE=employee_db \
+mysql:8
+```
 
-- Add **authentication and role-based access** (Admin/User)  
-- Implement **search and pagination** for employees  
-- Add **unit and integration tests** for backend and frontend  
-- Enhance UI with better styling and responsiveness  
+### Run Backend Container
 
-## Tech Stack
+```bash
+docker run -d \
+--name emp-backend \
+--network emp-network \
+-p 8081:8080 \
+emp-backend
+```
 
-- **Frontend:** React.js, Axios, HTML, CSS  
-- **Backend:** Spring Boot, Spring Data JPA, MySQL, Hibernate  
-- **Build Tools:** Maven/Gradle, npm/yarn
+### Run Frontend Container
 
-## Screenshots
+```bash
+docker run -d \
+--name emp-frontend \
+--network emp-network \
+-p 3000:80 \
+emp-frontend
+```
 
-### Employee List
-![Employee List](images/employee-list.png)
+---
 
-### Add Employee
-![Add Employee](images/add-employee.png)
+# 🔄 CI/CD Pipeline
 
-### Update Employee
-![Update Employee](images/update-employee.png)
+The Jenkins Pipeline automates the deployment process by performing the following stages:
 
+- ✅ Checkout Source Code
+- 🏗️ Build Backend Docker Image
+- 🏗️ Build Frontend Docker Image
+- 🛑 Stop Existing Containers
+- 🗑️ Remove Old Containers
+- 🚀 Deploy Updated Containers
+- ✔️ Verify Successful Deployment
 
-## License
+---
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+# 📸 Screenshots
+
+| Feature | Preview |
+|----------|---------|
+| 🏠 Home Page | *(Add Screenshot)* |
+| 📋 Employee List | *(Add Screenshot)* |
+| ➕ Add Employee | *(Add Screenshot)* |
+| ✏️ Update Employee | *(Add Screenshot)* |
+| 🤖 Jenkins Pipeline | *(Add Screenshot)* |
+| 🐳 Docker Containers | *(Add Screenshot)* |
+| ☁️ AWS Deployment | *(Add Screenshot)* |
+
+---
+
+# 🚀 Future Enhancements
+
+- 🔐 JWT Authentication
+- 👥 Role-Based Access Control
+- 🔍 Search & Pagination
+- 📄 Export Employee Data
+- 🧪 Unit & Integration Testing
+- ☸️ Kubernetes Deployment
+- 📊 Prometheus & Grafana Monitoring
+
+---
+
+# 👨‍💻 Author
+
+**Hemanth Kumar HV**
+
+⭐ If you found this project useful, consider giving it a **Star** on GitHub!
