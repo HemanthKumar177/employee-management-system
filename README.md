@@ -215,10 +215,9 @@ The Jenkins Pipeline automates the deployment process by performing the followin
 
 # 🚀 Future Enhancements
 
-- 🔐 JWT Authentication
+
 - 👥 Role-Based Access Control
 - 🔍 Search & Pagination
-- 📄 Export Employee Data
 - 🧪 Unit & Integration Testing
 - ☸️ Kubernetes Deployment
 - 📊 Prometheus & Grafana Monitoring
