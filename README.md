@@ -54,13 +54,13 @@ A production-ready **Employee Management System** built using **React.js**, **Sp
 
 # 📡 REST API Endpoints
 
-| Endpoint |                | Method    | Description |
+| Endpoint | Method | Description |
 |:---------|:------:|:------------|
-| `/api/v1/employees`      | **GET**    | Retrieve all employees      |
-| `/api/v1/employees/{id}` | **GET**    | Retrieve employee by ID     |
-| `/api/v1/employees/add`  | **POST**   | Create a new employee       |
-| `/api/v1/employees/{id}` | **PUT**    | Update an existing employee |
-| `/api/v1/employees/{id}` | **DELETE** | Delete an employee          |
+| `/api/v1/employees` | **GET** | Retrieve all employees |
+| `/api/v1/employees/{id}` | **GET** | Retrieve employee by ID |
+| `/api/v1/employees/add` | **POST** | Create a new employee |
+| `/api/v1/employees/{id}` | **PUT** | Update an existing employee |
+| `/api/v1/employees/{id}` | **DELETE** | Delete an employee |
 
 ---
 
